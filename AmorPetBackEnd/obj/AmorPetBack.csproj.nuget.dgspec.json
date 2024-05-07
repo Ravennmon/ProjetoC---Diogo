@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Henrique Onorato\\Desktop\\amorPet\\AmorPet\\AmorPetBackEnd\\AmorPetBack.csproj": {}
+    "C:\\Users\\Henrique Onorato\\Desktop\\ProjetoC-Diogo\\AmorPetBackEnd\\AmorPetBack.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Henrique Onorato\\Desktop\\amorPet\\AmorPet\\AmorPetBackEnd\\AmorPetBack.csproj": {
+    "C:\\Users\\Henrique Onorato\\Desktop\\ProjetoC-Diogo\\AmorPetBackEnd\\AmorPetBack.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Henrique Onorato\\Desktop\\amorPet\\AmorPet\\AmorPetBackEnd\\AmorPetBack.csproj",
+        "projectUniqueName": "C:\\Users\\Henrique Onorato\\Desktop\\ProjetoC-Diogo\\AmorPetBackEnd\\AmorPetBack.csproj",
         "projectName": "AmorPetBack",
-        "projectPath": "C:\\Users\\Henrique Onorato\\Desktop\\amorPet\\AmorPet\\AmorPetBackEnd\\AmorPetBack.csproj",
+        "projectPath": "C:\\Users\\Henrique Onorato\\Desktop\\ProjetoC-Diogo\\AmorPetBackEnd\\AmorPetBack.csproj",
         "packagesPath": "C:\\Users\\Henrique Onorato\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Henrique Onorato\\Desktop\\amorPet\\AmorPet\\AmorPetBackEnd\\obj\\",
+        "outputPath": "C:\\Users\\Henrique Onorato\\Desktop\\ProjetoC-Diogo\\AmorPetBackEnd\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Henrique Onorato\\AppData\\Roaming\\NuGet\\NuGet.Config"
