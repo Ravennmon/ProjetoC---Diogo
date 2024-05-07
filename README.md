@@ -13,7 +13,8 @@ Este repositório é voltado ao projeto de deselvolvimento do trabalho da aula d
 
 | Autor | Resumos |
 |-------|---------|
-|Assunto| [Resumo] () |
+|Francyne Leocadio| [Resumo] (Criação do esqueleto inicial do projeto, para o inicio do backend da ideia) |
+|Henrique Onorato | [Resumo] (Criação do esqyueleto de inicio para o backend) |
 
 ## 💻 Código 
 ```
