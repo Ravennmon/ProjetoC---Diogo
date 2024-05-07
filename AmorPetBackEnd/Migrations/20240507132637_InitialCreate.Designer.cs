@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AmorPetBack.Migrations
 {
     [DbContext(typeof(AppContext))]
-    [Migration("20240506220003_InitialCreate")]
+    [Migration("20240507132637_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

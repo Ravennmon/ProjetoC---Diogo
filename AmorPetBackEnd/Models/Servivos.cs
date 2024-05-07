@@ -1,7 +1,9 @@
+using System;
+
 
 public class Servicos 
 {
-    public Servicos( String nome, String descricao)  {
+    public Servicos( string nome, string descricao)  {
         Id = Guid.NewGuid().ToString();
         Nome = nome;
         Descricao = descricao;
