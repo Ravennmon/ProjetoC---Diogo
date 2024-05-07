@@ -1,9 +1,0 @@
-### Cadastrar Serviços
-
-POST http://localhost:5099/api/servicos/cadastrar
-Content-Type: application/json
-
-{
-    "nome": "Banho",
-    "descricao": "Banho simples para cães de pequeno porte"
-}
