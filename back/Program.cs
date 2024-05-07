@@ -11,14 +11,19 @@ app.MapGet("/", () => "Hello World!");
 
 List<Servicos> servicos = new List<Servicos>();
 
-app.MapPost("servicos/cadastrar", ([FromBody] Servicos servico, [FromServices] AppContext context) => {
-    if (servico.Id == null) 
+app.MapPost("servicos/cadastrar", ([FromBody] Servicos servico, [FromServices] AppContext context) => 
+{
+    Servicos? servicoExistente = context.Servicos.FirstOrDefault(s => s.Nome == servico.Nome);
+
+    if(servicoExistente is null)
     {
-        servico.Id = Guid.NewGuid().ToString();
+        servico.Nome = servico.Nome.ToUpper();
+        context.Servicos.Add(servico);
+        context.SaveChanges();
+        return Results.Ok(context.Servicos.ToList());
+
     }
-    servico.Nome = servico.Nome.ToUpper();
-    context.Servicos.Add(servico);
-    context.SaveChanges();
+    return Results.BadRequest("Serviço já cadastrado");
 });
 
 app.MapGet("servicos/listar", ([FromServices] AppContext context) => 
@@ -33,7 +38,7 @@ app.MapGet("servicos/listar", ([FromServices] AppContext context) =>
 
 });
 
-app.MapGet("servicos/buscar/{id}", ([FromServices] AppContext context, string id) => {
+app.MapGet("servicos/buscar/{id}", ([FromServices] AppContext context, int id) => {
    Servicos? servicoBuascar = context.Servicos.FirstOrDefault(servico => servico.Id == id);
     
     if (servicoBuascar is null)
@@ -45,7 +50,7 @@ app.MapGet("servicos/buscar/{id}", ([FromServices] AppContext context, string id
    
 });
 
-app.MapDelete("servicos/deletar/{id}", ([FromServices] AppContext context, string id) => {
+app.MapDelete("servicos/deletar/{id}", ([FromServices] AppContext context, int id) => {
    Servicos? servicoBuascar = context.Servicos.Find(id);
     
     if (servicoBuascar is null)
@@ -59,7 +64,7 @@ app.MapDelete("servicos/deletar/{id}", ([FromServices] AppContext context, strin
    
 });
 
-app.MapPut("servicos/atualizar/{id}", ([FromBody] Servicos servico, [FromServices] AppContext context, string id) => {
+app.MapPut("servicos/atualizar/{id}", ([FromBody] Servicos servico, [FromServices] AppContext context, int id) => {
    Servicos? servicoBuascar = context.Servicos.Find(id);
     
     if (servicoBuascar is null)

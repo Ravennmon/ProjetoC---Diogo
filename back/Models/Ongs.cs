@@ -2,7 +2,6 @@ public class Ongs
 {
     public Ongs(string nome, int cnpj, string endereco, string telefone, string email, string redesSociais)
     {
-        Id = Guid.NewGuid().ToString();
         Nome = nome;
         Cnpj = cnpj;
         Endereco = endereco;
@@ -13,7 +12,7 @@ public class Ongs
    
     public Ongs(){}
 
-    public string Id { get; set; }
+    public int Id { get; set; }
     public string Nome { get; set; }
     public int Cnpj { get; set; }
     public string Endereco { get; set; }

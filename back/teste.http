@@ -4,8 +4,8 @@ Content-Type: application/json
 
 
 {
-    "nome": "Banho Simples 2",
-    "descricao": "Banho Simples sem tosa"
+    "nome": "Banho novo 3",
+    "descricao": "Teste"
     
 }
 
@@ -15,16 +15,16 @@ GET http://localhost:5178/servicos/listar
 
 ### Buscar Serviço por ID
 
-GET http://localhost:5178/servicos/buscar/asdfasd-564656dsada-dfsdsdssxdsdfdf
+GET http://localhost:5178/servicos/buscar/3
 
 
 ### Deletar Serviço por ID
 
-DELETE http://localhost:5178/servicos/deletar/asdfasd-564656-dfsdf 
+DELETE http://localhost:5178/servicos/deletar/3
 
 ### Atualizar Serviço por ID
 
-PUT http://localhost:5178/servicos/atualizar/f4b052e4-73c1-4a82-8c28-9bb28778c540
+PUT http://localhost:5178/servicos/atualizar/1
 Content-Type: application/json
 
 {

@@ -1,14 +1,13 @@
 public class Cuidadores
 {
-    public Cuidadores(string nome, string endereco, string telefone, string email, string especialidade, int cpfCnpj, int idade)  {
-        Id = Guid.NewGuid().ToString();
+    public Cuidadores(string nome, string endereco, string telefone, string email, string especialidade, int cpfCnpj, DateTime anoNasci)  {
         Nome = nome;
         Endereco = endereco;
         Telefone = telefone;
         Email = email;
         Especialidade = especialidade;
         CpfCnpj = cpfCnpj;
-        Idade = idade;
+        AnoNasci = anoNasci;
     }
 
     public Cuidadores(){}
@@ -20,6 +19,6 @@ public class Cuidadores
     public string Email { get; set; }
     public string Especialidade { get; set; }
     public int CpfCnpj { get; set; }
-    public int Idade { get; set; }
+    public DateTime AnoNasci { get; set; }
     
 }

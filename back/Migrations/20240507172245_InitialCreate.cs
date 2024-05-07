@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
@@ -21,7 +22,7 @@ namespace back.Migrations
                     Email = table.Column<string>(type: "TEXT", nullable: false),
                     Especialidade = table.Column<string>(type: "TEXT", nullable: false),
                     CpfCnpj = table.Column<int>(type: "INTEGER", nullable: false),
-                    Idade = table.Column<int>(type: "INTEGER", nullable: false)
+                    AnoNasci = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -32,7 +33,8 @@ namespace back.Migrations
                 name: "Ongs",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
                     Cnpj = table.Column<int>(type: "INTEGER", nullable: false),
                     Endereco = table.Column<string>(type: "TEXT", nullable: false),
@@ -49,7 +51,8 @@ namespace back.Migrations
                 name: "Servicos",
                 columns: table => new
                 {
-                    Id = table.Column<string>(type: "TEXT", nullable: false),
+                    Id = table.Column<int>(type: "INTEGER", nullable: false)
+                        .Annotation("Sqlite:Autoincrement", true),
                     Nome = table.Column<string>(type: "TEXT", nullable: false),
                     Descricao = table.Column<string>(type: "TEXT", nullable: false)
                 },
