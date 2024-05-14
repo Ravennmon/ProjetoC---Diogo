@@ -1,25 +1,31 @@
 {
   "format": 1,
   "restore": {
-    "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj": {}
+    "C:\\MinGW\\mingw64\\ProjetoC-Diogo\\back\\back.csproj": {}
   },
   "projects": {
-    "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj": {
+    "C:\\MinGW\\mingw64\\ProjetoC-Diogo\\back\\back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj",
+        "projectUniqueName": "C:\\MinGW\\mingw64\\ProjetoC-Diogo\\back\\back.csproj",
         "projectName": "back",
-        "projectPath": "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj",
-        "packagesPath": "C:\\Users\\heL\\.nuget\\packages\\",
-        "outputPath": "D:\\coding\\c#\\ProjetoC-Diogo\\back\\obj\\",
+        "projectPath": "C:\\MinGW\\mingw64\\ProjetoC-Diogo\\back\\back.csproj",
+        "packagesPath": "C:\\Users\\autologon\\.nuget\\packages\\",
+        "outputPath": "C:\\MinGW\\mingw64\\ProjetoC-Diogo\\back\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+        ],
         "configFilePaths": [
-          "C:\\Users\\heL\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\autologon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -32,11 +38,6 @@
           "warnAsError": [
             "NU1605"
           ]
-        },
-        "restoreAuditProperties": {
-          "enableAudit": "true",
-          "auditLevel": "low",
-          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -77,7 +78,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
