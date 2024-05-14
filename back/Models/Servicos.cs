@@ -1,17 +1,14 @@
 
-namespace BACK.Models;
-public class Servicos 
+namespace back.Models;
+
+public class Servico
 {
-    public Servicos( string nome, string descricao)  {
+    public Servico( string nome, string descricao)  {
         Nome = nome;
         Descricao = descricao;
     }
-
-    public Servicos(){}
-
+    
     public int Id { get; set; }
     public string Nome { get; set; }
     public string Descricao { get; set; }
-
-
 }
