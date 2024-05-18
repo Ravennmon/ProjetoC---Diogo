@@ -1,8 +1,8 @@
 namespace back.Models;
 
-public class Cuidador
+public class Tutor
 {
-    public Cuidador(string nome, string email, string cpfCnpj, string telefone, string endereco, DateTime dataNascimento)  {
+    public Tutor(string nome, string email, string cpfCnpj, string telefone, string endereco, DateTime dataNascimento)  {
         Nome = nome;
         Email = email;
         CpfCnpj = cpfCnpj;
@@ -18,6 +18,6 @@ public class Cuidador
     public string Telefone { get; set; }
     public DateTime DataNascimento { get; set; }
     public string Endereco { get; set; }
-    public ICollection<RedeSocial> RedesSociais { get; set; }
-    public ICollection<Animal> Animais { get; set; }
+    public ICollection<RedeSocial>? RedesSociais { get; set; }
+    public ICollection<Animal>? Animais { get; set; }
 }
