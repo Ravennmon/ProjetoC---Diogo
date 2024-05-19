@@ -23,6 +23,11 @@ Content-Type: application/json
     "observacao": "Animal muito dócil"
 }
 
+### Buscar por Tipo
+GET {{base_url}}/animais/tipo/2
+Content-Type: application/json
+
+
 ### Deletar Animal
 DELETE {{base_url}}/animais/1
 Content-Type: application/json

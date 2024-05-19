@@ -1,0 +1,14 @@
+@base_url = http://localhost:5178
+
+### Atualizar Serviço
+PUT {{base_url}}/redes-sociais/1
+Content-Type: application/json
+
+{
+    "url": "http://twitter.com/amor_pet",
+    "descricao": "Twitter"
+}
+
+### Deletar Serviço
+DELETE {{base_url}}/redes-sociais/1
+Content-Type: application/json

@@ -1,4 +1,5 @@
 using back.Models;
+using back.Enums;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
@@ -169,7 +170,33 @@ app.MapPost("ongs/{id}/servicos", ([FromBody] Servico servico, [FromServices] Ap
     return Results.Ok(ong);
 });
 
+app.MapPost("ongs/{id}/redes-sociais", ([FromBody] RedeSocial redeSocial, [FromServices] AppDbContext context, int id) =>
+{
+    List<ValidationResult> erros = new List<ValidationResult>();
 
+    if (!Validator.TryValidateObject(
+            redeSocial,
+            new ValidationContext(redeSocial),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
+    Ong? ong = context.Ongs.Find(id);
+
+    if (ong is null)
+    {
+        return Results.NotFound("Ong não encontrada");
+    }
+
+    redeSocial.Ong = ong;
+    context.RedeSociais.Add(redeSocial);
+    context.SaveChanges();
+    return Results.Ok(ong);
+});
 
 app.MapPost("/tutores", ([FromBody] Tutor tutor, [FromServices] AppDbContext context) =>
 {
@@ -270,6 +297,34 @@ app.MapPut("tutores/{id}", ([FromBody] Tutor tutorRequest, [FromServices] AppDbC
     return Results.Ok(tutor);
 });
 
+app.MapPost("tutores/{id}/redes-sociais", ([FromBody] RedeSocial redeSocial, [FromServices] AppDbContext context, int id) =>
+{
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            redeSocial,
+            new ValidationContext(redeSocial),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
+    Tutor? tutor = context.Tutores.Find(id);
+
+    if (tutor is null)
+    {
+        return Results.NotFound("Tutor não encontrado");
+    }
+
+    redeSocial.Tutor = tutor;
+    context.RedeSociais.Add(redeSocial);
+    context.SaveChanges();
+    return Results.Ok(tutor);
+});
+
 app.MapPost("tutores/{id}/adocao/{animalId}", ([FromServices] AppDbContext context, int id, int animalId) =>
 {
    Tutor? tutor = context.Tutores.Find(id);
@@ -318,6 +373,20 @@ app.MapGet("/animais/{id}", ([FromServices] AppDbContext context, int id) =>
     }
 
     return Results.Ok(animal);
+});
+
+app.MapGet("/animais/tipo/{tipo}", ([FromServices] AppDbContext context, int tipo) =>
+{
+    TipoAnimal tipoAnimal = (TipoAnimal)tipo;
+    
+    List<Animal> animais = context.Animais.Where(a => a.Tipo == tipoAnimal).ToList();
+
+    if (animais.Any())
+    {
+        return Results.Ok(animais);
+    }
+
+    return Results.NotFound("Não existem animais do tipo " + tipoAnimal + " na tabela");
 });
 
 app.MapDelete("animais/{id}", ([FromServices] AppDbContext context, int id) =>
@@ -418,28 +487,6 @@ app.MapDelete("animais/fotos/{id}", ([FromServices] AppDbContext context, int id
 
 });
 
-app.MapGet("/servicos", ([FromServices] AppDbContext context) =>
-{
-    if (context.Servicos.Any())
-    {
-        return Results.Ok(context.Servicos.Include(p => p.Ong).ToList());
-    }
-
-    return Results.NotFound("Não existem serviços na tabela");
-});
-
-app.MapGet("/servicos/{id}", ([FromServices] AppDbContext context, int id) =>
-{
-    Servico? servico = context.Servicos.Include(p => p.Ong).FirstOrDefault(servico => servico.Id == id);
-
-    if (servico is null)
-    {
-        return Results.NotFound("Serviço não encontrado");
-    }
-
-    return Results.Ok(servico);
-});
-
 app.MapPut("servicos/{id}", ([FromBody] Servico servicoRequest, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
@@ -484,5 +531,47 @@ app.MapDelete("servicos/{id}", ([FromServices] AppDbContext context, int id) =>
 
 });
 
+app.MapPut("/redes-sociais/{id}", ([FromBody] RedeSocial redeSocialRequest, [FromServices] AppDbContext context, int id) =>
+{
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            redeSocialRequest,
+            new ValidationContext(redeSocialRequest),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
+    RedeSocial? redeSocial = context.RedeSociais.Find(id);
+
+    if (redeSocial is null)
+    {
+        return Results.NotFound("Rede social não encontrada");
+    }
+
+    redeSocial.Url = redeSocialRequest.Url;
+    redeSocial.Descricao = redeSocialRequest.Descricao;
+    context.SaveChanges();
+    return Results.Ok(redeSocial);
+});
+
+app.MapDelete("redes-sociais/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    RedeSocial? redeSocial = context.RedeSociais.Find(id);
+
+    if (redeSocial is null)
+    {
+        return Results.NotFound("Rede social não encontrada");
+    }
+
+    context.RedeSociais.Remove(redeSocial);
+    context.SaveChanges();
+    return Results.Ok("Rede social removida com sucesso!");
+
+});
 
 app.Run();
