@@ -1,6 +1,9 @@
 
 namespace back.Models;
+
+using System.ComponentModel.DataAnnotations;
 using back.Enums;
+using back.Validations;
 
 public class Animal 
 {
@@ -19,13 +22,41 @@ public class Animal
     }
 
     public int Id { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
+    [MinLength(3)]
+    [MaxLength(100)]
     public string Nome { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
     public TipoAnimal Tipo { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
+    [DataType(DataType.Date, ErrorMessage = "Data inválida")]
+    [DateValidation(ErrorMessage = "A data de nascimento inválida")]
     public DateTime DataNascimento { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
+    [MinLength(3)]
+    [MaxLength(25)]
     public string Raca { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
+    [MinLength(3)]
+    [MaxLength(20)]
     public string Porte { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
+    [Range(0.1, 1000, ErrorMessage = "Peso inválido")]
     public float Peso { get; set; }
-    public string Sexo { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
+    [MinLength(3)]
+    [MaxLength(10)]
+    public string? Sexo { get; set; }
+
+    [MinLength(3)]
+    [MaxLength(200)]
     public string? Observacao { get; set; }
 
     public int OngId { get; set; }

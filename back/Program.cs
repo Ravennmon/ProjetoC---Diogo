@@ -2,6 +2,7 @@ using back.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Text.Json.Serialization;
+using System.ComponentModel.DataAnnotations;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -27,6 +28,19 @@ app.MapGet("/ongs", ([FromServices] AppDbContext context) =>
 
 app.MapPost("/ongs", ([FromBody] Ong ong, [FromServices] AppDbContext context) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            ong,
+            new ValidationContext(ong),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+    
     Ong? ongExistente = context.Ongs.FirstOrDefault(o => o.Cnpj == ong.Cnpj);
 
     if (ongExistente is null)
@@ -70,6 +84,19 @@ app.MapDelete("ongs/{id}", ([FromServices] AppDbContext context, int id) =>
 
 app.MapPut("ongs/{id}", ([FromBody] Ong ongRequest, [FromServices] AppDbContext context, int id) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            ongRequest,
+            new ValidationContext(ongRequest),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Ong? ong = context.Ongs.Find(id);
 
     if (ong is null)
@@ -88,6 +115,19 @@ app.MapPut("ongs/{id}", ([FromBody] Ong ongRequest, [FromServices] AppDbContext 
 
 app.MapPost("ongs/{id}/animais", ([FromBody] Animal animal, [FromServices] AppDbContext context, int id) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            animal,
+            new ValidationContext(animal),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Ong? ong = context.Ongs.Find(id);
 
     if (ong is null)
@@ -103,6 +143,19 @@ app.MapPost("ongs/{id}/animais", ([FromBody] Animal animal, [FromServices] AppDb
 
 app.MapPost("ongs/{id}/servicos", ([FromBody] Servico servico, [FromServices] AppDbContext context, int id) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            servico,
+            new ValidationContext(servico),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Ong? ong = context.Ongs.Find(id);
 
     if (ong is null)
@@ -120,6 +173,19 @@ app.MapPost("ongs/{id}/servicos", ([FromBody] Servico servico, [FromServices] Ap
 
 app.MapPost("/tutores", ([FromBody] Tutor tutor, [FromServices] AppDbContext context) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            tutor,
+            new ValidationContext(tutor),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Tutor? tutorExistente = context.Tutores.FirstOrDefault(c => c.Nome == tutor.Nome);
 
     if (tutorExistente is null)
@@ -174,6 +240,19 @@ app.MapDelete("tutores/{id}", ([FromServices] AppDbContext context, int id) =>
 
 app.MapPut("tutores/{id}", ([FromBody] Tutor tutorRequest, [FromServices] AppDbContext context, int id) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            tutorRequest,
+            new ValidationContext(tutorRequest),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Tutor? tutor = context.Tutores.Find(id);
 
     if (tutor is null)
@@ -263,6 +342,19 @@ app.MapDelete("animais/{id}", ([FromServices] AppDbContext context, int id) =>
 
 app.MapPut("animais/{id}", ([FromBody] Animal animalRequest, [FromServices] AppDbContext context, int id) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            animalRequest,
+            new ValidationContext(animalRequest),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Animal? animal = context.Animais.Find(id);
 
     if (animal is null)
@@ -285,6 +377,19 @@ app.MapPut("animais/{id}", ([FromBody] Animal animalRequest, [FromServices] AppD
 
 app.MapPost("animais/{id}/fotos", ([FromServices] AppDbContext context, int id, [FromBody] AnimalFoto animalFoto ) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            animalFoto,
+            new ValidationContext(animalFoto),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Animal? animal = context.Animais.Find(id);
 
     if (animal is null)
@@ -337,6 +442,19 @@ app.MapGet("/servicos/{id}", ([FromServices] AppDbContext context, int id) =>
 
 app.MapPut("servicos/{id}", ([FromBody] Servico servicoRequest, [FromServices] AppDbContext context, int id) =>
 {
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            servicoRequest,
+            new ValidationContext(servicoRequest),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
     Servico? servico = context.Servicos.Find(id);
 
     if (servico is null)

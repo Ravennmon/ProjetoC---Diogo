@@ -28,9 +28,11 @@ namespace back.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Observacao")
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OngId")
@@ -41,14 +43,17 @@ namespace back.Migrations
 
                     b.Property<string>("Porte")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Raca")
                         .IsRequired()
+                        .HasMaxLength(25)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Sexo")
                         .IsRequired()
+                        .HasMaxLength(10)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Tipo")
@@ -95,6 +100,7 @@ namespace back.Migrations
 
                     b.Property<string>("Cnpj")
                         .IsRequired()
+                        .HasMaxLength(18)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Email")
@@ -103,14 +109,17 @@ namespace back.Migrations
 
                     b.Property<string>("Endereco")
                         .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");
@@ -126,6 +135,7 @@ namespace back.Migrations
 
                     b.Property<string>("Descricao")
                         .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<int?>("OngId")
@@ -154,11 +164,12 @@ namespace back.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
+                        .HasMaxLength(200)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Nome")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<int>("OngId")
@@ -179,6 +190,7 @@ namespace back.Migrations
 
                     b.Property<string>("CpfCnpj")
                         .IsRequired()
+                        .HasMaxLength(18)
                         .HasColumnType("TEXT");
 
                     b.Property<DateTime>("DataNascimento")
@@ -194,10 +206,12 @@ namespace back.Migrations
 
                     b.Property<string>("Nome")
                         .IsRequired()
+                        .HasMaxLength(100)
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Telefone")
                         .IsRequired()
+                        .HasMaxLength(20)
                         .HasColumnType("TEXT");
 
                     b.HasKey("Id");

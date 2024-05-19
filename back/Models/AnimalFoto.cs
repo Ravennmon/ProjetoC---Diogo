@@ -1,6 +1,7 @@
 
 namespace back.Models;
-using back.Enums;
+
+using System.ComponentModel.DataAnnotations;
 
 public class AnimalFoto 
 {
@@ -11,6 +12,9 @@ public class AnimalFoto
     }
 
     public int Id { get; set; }
+
+    [Required(ErrorMessage = "Campo obrigatório")]
+    [Url(ErrorMessage = "Url inválida")]
     public string Url { get; set; }
 
     public int AnimalId { get; set; }
