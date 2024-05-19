@@ -256,4 +256,48 @@ app.MapDelete("servicos/{id}", ([FromServices] AppDbContext context, int id) =>
 
 });
 
+app.MapPut("/redes-sociais/{id}", ([FromBody] RedeSocial redeSocialRequest, [FromServices] AppDbContext context, int id) =>
+{
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            redeSocialRequest,
+            new ValidationContext(redeSocialRequest),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
+    RedeSocial? redeSocial = context.RedeSociais.Find(id);
+
+    if (redeSocial is null)
+    {
+        return Results.NotFound("Rede social não encontrada");
+    }
+
+    redeSocial.Url = redeSocialRequest.Url;
+    redeSocial.Descricao = redeSocialRequest.Descricao;
+    context.SaveChanges();
+    return Results.Ok(redeSocial);
+});
+
+app.MapDelete("/redes-sociais/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    RedeSocial? redeSocial = context.RedeSociais.Find(id);
+
+    if (redeSocial is null)
+    {
+        return Results.NotFound("Rede social não encontrada");
+    }
+
+    context.RedeSociais.Remove(redeSocial);
+    context.SaveChanges();
+    return Results.Ok("Rede social removida com sucesso!");
+
+});
+
+
 app.Run();
