@@ -9,6 +9,105 @@ var app = builder.Build();
 
 List<Servico> servicos = new List<Servico>();
 
+app.MapPost("/tutores", ([FromBody] Tutor tutor, [FromServices] AppDbContext context) =>
+{
+    Tutor? tutorExistente = context.Tutores.FirstOrDefault(c => c.Nome == tutor.Nome);
+
+    if (tutorExistente is null)
+    {
+        context.Tutores.Add(tutor);
+        context.SaveChanges();
+        return Results.Ok(context.Tutores.ToList());
+
+    }
+    return Results.BadRequest("Tutor já cadastrado");
+});
+
+app.MapGet("/tutores", ([FromServices] AppDbContext context) =>
+{
+    if (context.Tutores.Any())
+    {
+        return Results.Ok(context.Tutores.Include(p => p.Animais).ToList());
+    }
+
+    return Results.NotFound("Não existem tutores na tabela");
+});
+
+app.MapGet("/tutores/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    Tutor? tutor = context.Tutores.Include(p => p.Animais).FirstOrDefault(tutor => tutor.Id == id);
+
+    if (tutor is null)
+    {
+        return Results.NotFound("Tutor não encontrado");
+    }
+
+
+
+    return Results.Ok(tutor);
+
+});
+
+app.MapDelete("tutores/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    Tutor? tutor = context.Tutores.Find(id);
+
+    if (tutor is null)
+    {
+        return Results.NotFound("Tutor não encontrado");
+    }
+
+    context.Tutores.Remove(tutor);
+    context.SaveChanges();
+    return Results.Ok("Tutor removido com sucesso!");
+
+});
+
+app.MapPut("tutores/{id}", ([FromBody] Tutor tutorRequest, [FromServices] AppDbContext context, int id) =>
+{
+    Tutor? tutor = context.Tutores.Find(id);
+
+    if (tutor is null)
+    {
+        return Results.NotFound("Tutor não encontrado");
+    }
+
+    tutor.Nome = tutorRequest.Nome;
+    tutor.Endereco = tutorRequest.Endereco;
+    tutor.Telefone = tutorRequest.Telefone;
+    tutor.Email = tutorRequest.Email;
+    tutor.CpfCnpj = tutorRequest.CpfCnpj;
+    tutor.DataNascimento = tutorRequest.DataNascimento;
+    context.SaveChanges();
+    return Results.Ok(tutor);
+});
+
+app.MapPost("tutores/{id}/adocao/{animalId}", ([FromServices] AppDbContext context, int id, int animalId) =>
+{
+   Tutor? tutor = context.Tutores.Find(id);
+
+    if (tutor is null)
+    {
+        return Results.NotFound("Tutor não encontrado");
+    }
+
+    Animal? animal = context.Animais.Find(animalId);
+
+    if (animal is null)
+    {
+        return Results.NotFound("Animal não encontrado");
+    }
+
+    if (animal.Adotado)
+    {
+        return Results.BadRequest("Animal já adotado");
+    }
+
+    animal.Tutor = tutor;
+    context.SaveChanges();
+    return Results.Ok("Animal adotado com sucesso!");
+});
+
 app.MapGet("/animais", ([FromServices] AppDbContext context) =>
 {
     if (context.Animais.Any())
@@ -156,5 +255,49 @@ app.MapDelete("servicos/{id}", ([FromServices] AppDbContext context, int id) =>
     return Results.Ok("Serviço removido com sucesso!");
 
 });
+
+app.MapPut("/redes-sociais/{id}", ([FromBody] RedeSocial redeSocialRequest, [FromServices] AppDbContext context, int id) =>
+{
+    List<ValidationResult> erros = new List<ValidationResult>();
+
+    if (!Validator.TryValidateObject(
+            redeSocialRequest,
+            new ValidationContext(redeSocialRequest),
+            erros,
+            true
+        )
+    )
+    {
+        return Results.BadRequest(erros);
+    }
+
+    RedeSocial? redeSocial = context.RedeSociais.Find(id);
+
+    if (redeSocial is null)
+    {
+        return Results.NotFound("Rede social não encontrada");
+    }
+
+    redeSocial.Url = redeSocialRequest.Url;
+    redeSocial.Descricao = redeSocialRequest.Descricao;
+    context.SaveChanges();
+    return Results.Ok(redeSocial);
+});
+
+app.MapDelete("/redes-sociais/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    RedeSocial? redeSocial = context.RedeSociais.Find(id);
+
+    if (redeSocial is null)
+    {
+        return Results.NotFound("Rede social não encontrada");
+    }
+
+    context.RedeSociais.Remove(redeSocial);
+    context.SaveChanges();
+    return Results.Ok("Rede social removida com sucesso!");
+
+});
+
 
 app.Run();
