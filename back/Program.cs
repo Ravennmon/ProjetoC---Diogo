@@ -13,8 +13,6 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
 
 var app = builder.Build();
 
-List<Servico> servicos = new List<Servico>();
-
 app.MapGet("/ongs", ([FromServices] AppDbContext context) =>
 {
     List<Ong> ongs = context.Ongs.ToList();
@@ -68,7 +66,7 @@ app.MapGet("/ongs/{id}", ([FromServices] AppDbContext context, int id) =>
 
 });
 
-app.MapDelete("ongs/{id}", ([FromServices] AppDbContext context, int id) =>
+app.MapDelete("/ongs/{id}", ([FromServices] AppDbContext context, int id) =>
 {
     Ong? ong = context.Ongs.Find(id);
 
@@ -83,7 +81,7 @@ app.MapDelete("ongs/{id}", ([FromServices] AppDbContext context, int id) =>
 
 });
 
-app.MapPut("ongs/{id}", ([FromBody] Ong ongRequest, [FromServices] AppDbContext context, int id) =>
+app.MapPut("/ongs/{id}", ([FromBody] Ong ongRequest, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -114,7 +112,7 @@ app.MapPut("ongs/{id}", ([FromBody] Ong ongRequest, [FromServices] AppDbContext 
     return Results.Ok(ong);
 });
 
-app.MapPost("ongs/{id}/animais", ([FromBody] Animal animal, [FromServices] AppDbContext context, int id) =>
+app.MapPost("/ongs/{id}/animais", ([FromBody] Animal animal, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -142,7 +140,7 @@ app.MapPost("ongs/{id}/animais", ([FromBody] Animal animal, [FromServices] AppDb
     return Results.Ok(ong);
 });
 
-app.MapPost("ongs/{id}/servicos", ([FromBody] Servico servico, [FromServices] AppDbContext context, int id) =>
+app.MapPost("/ongs/{id}/servicos", ([FromBody] Servico servico, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -170,7 +168,7 @@ app.MapPost("ongs/{id}/servicos", ([FromBody] Servico servico, [FromServices] Ap
     return Results.Ok(ong);
 });
 
-app.MapPost("ongs/{id}/redes-sociais", ([FromBody] RedeSocial redeSocial, [FromServices] AppDbContext context, int id) =>
+app.MapPost("/ongs/{id}/redes-sociais", ([FromBody] RedeSocial redeSocial, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -250,7 +248,7 @@ app.MapGet("/tutores/{id}", ([FromServices] AppDbContext context, int id) =>
 
 });
 
-app.MapDelete("tutores/{id}", ([FromServices] AppDbContext context, int id) =>
+app.MapDelete("/tutores/{id}", ([FromServices] AppDbContext context, int id) =>
 {
     Tutor? tutor = context.Tutores.Find(id);
 
@@ -265,7 +263,7 @@ app.MapDelete("tutores/{id}", ([FromServices] AppDbContext context, int id) =>
 
 });
 
-app.MapPut("tutores/{id}", ([FromBody] Tutor tutorRequest, [FromServices] AppDbContext context, int id) =>
+app.MapPut("/tutores/{id}", ([FromBody] Tutor tutorRequest, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -297,7 +295,7 @@ app.MapPut("tutores/{id}", ([FromBody] Tutor tutorRequest, [FromServices] AppDbC
     return Results.Ok(tutor);
 });
 
-app.MapPost("tutores/{id}/redes-sociais", ([FromBody] RedeSocial redeSocial, [FromServices] AppDbContext context, int id) =>
+app.MapPost("/tutores/{id}/redes-sociais", ([FromBody] RedeSocial redeSocial, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -325,7 +323,7 @@ app.MapPost("tutores/{id}/redes-sociais", ([FromBody] RedeSocial redeSocial, [Fr
     return Results.Ok(tutor);
 });
 
-app.MapPost("tutores/{id}/adocao/{animalId}", ([FromServices] AppDbContext context, int id, int animalId) =>
+app.MapPost("/tutores/{id}/adocao/{animalId}", ([FromServices] AppDbContext context, int id, int animalId) =>
 {
    Tutor? tutor = context.Tutores.Find(id);
 
@@ -378,7 +376,7 @@ app.MapGet("/animais/{id}", ([FromServices] AppDbContext context, int id) =>
 app.MapGet("/animais/tipo/{tipo}", ([FromServices] AppDbContext context, int tipo) =>
 {
     TipoAnimal tipoAnimal = (TipoAnimal)tipo;
-    
+
     List<Animal> animais = context.Animais.Where(a => a.Tipo == tipoAnimal).ToList();
 
     if (animais.Any())
@@ -389,7 +387,7 @@ app.MapGet("/animais/tipo/{tipo}", ([FromServices] AppDbContext context, int tip
     return Results.NotFound("Não existem animais do tipo " + tipoAnimal + " na tabela");
 });
 
-app.MapDelete("animais/{id}", ([FromServices] AppDbContext context, int id) =>
+app.MapDelete("/animais/{id}", ([FromServices] AppDbContext context, int id) =>
 {
     Animal? animal = context.Animais.Find(id);
 
@@ -409,7 +407,7 @@ app.MapDelete("animais/{id}", ([FromServices] AppDbContext context, int id) =>
 
 });
 
-app.MapPut("animais/{id}", ([FromBody] Animal animalRequest, [FromServices] AppDbContext context, int id) =>
+app.MapPut("/animais/{id}", ([FromBody] Animal animalRequest, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -444,7 +442,7 @@ app.MapPut("animais/{id}", ([FromBody] Animal animalRequest, [FromServices] AppD
     return Results.Ok(animal);
 });
 
-app.MapPost("animais/{id}/fotos", ([FromServices] AppDbContext context, int id, [FromBody] AnimalFoto animalFoto ) =>
+app.MapPost("/animais/{id}/fotos", ([FromServices] AppDbContext context, int id, [FromBody] AnimalFoto animalFoto ) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -472,7 +470,7 @@ app.MapPost("animais/{id}/fotos", ([FromServices] AppDbContext context, int id, 
     return Results.Ok(animal);
 });
 
-app.MapDelete("animais/fotos/{id}", ([FromServices] AppDbContext context, int id) =>
+app.MapDelete("/animais/fotos/{id}", ([FromServices] AppDbContext context, int id) =>
 {
     AnimalFoto? animalFoto = context.AnimalFotos.Find(id);
 
@@ -487,7 +485,7 @@ app.MapDelete("animais/fotos/{id}", ([FromServices] AppDbContext context, int id
 
 });
 
-app.MapPut("servicos/{id}", ([FromBody] Servico servicoRequest, [FromServices] AppDbContext context, int id) =>
+app.MapPut("/servicos/{id}", ([FromBody] Servico servicoRequest, [FromServices] AppDbContext context, int id) =>
 {
     List<ValidationResult> erros = new List<ValidationResult>();
 
@@ -516,7 +514,7 @@ app.MapPut("servicos/{id}", ([FromBody] Servico servicoRequest, [FromServices] A
 });
 
 
-app.MapDelete("servicos/{id}", ([FromServices] AppDbContext context, int id) =>
+app.MapDelete("/servicos/{id}", ([FromServices] AppDbContext context, int id) =>
 {
     Servico? servico = context.Servicos.Find(id);
 
@@ -559,7 +557,7 @@ app.MapPut("/redes-sociais/{id}", ([FromBody] RedeSocial redeSocialRequest, [Fro
     return Results.Ok(redeSocial);
 });
 
-app.MapDelete("redes-sociais/{id}", ([FromServices] AppDbContext context, int id) =>
+app.MapDelete("/redes-sociais/{id}", ([FromServices] AppDbContext context, int id) =>
 {
     RedeSocial? redeSocial = context.RedeSociais.Find(id);
 
