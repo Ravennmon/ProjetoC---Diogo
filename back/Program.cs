@@ -7,76 +7,154 @@ builder.Services.AddDbContext<AppContext>();
 
 var app = builder.Build();
 
-app.MapGet("/", () => "Hello World!");
+List<Servico> servicos = new List<Servico>();
 
-List<Servicos> servicos = new List<Servicos>();
-
-app.MapPost("servicos/cadastrar", ([FromBody] Servicos servico, [FromServices] AppContext context) => 
+app.MapGet("/animais", ([FromServices] AppDbContext context) =>
 {
-    Servicos? servicoExistente = context.Servicos.FirstOrDefault(s => s.Nome == servico.Nome);
-
-    if(servicoExistente is null)
+    if (context.Animais.Any())
     {
-        servico.Nome = servico.Nome.ToUpper();
-        context.Servicos.Add(servico);
-        context.SaveChanges();
-        return Results.Ok(context.Servicos.ToList());
-
+        return Results.Ok(context.Animais.ToList());
     }
-    return Results.BadRequest("Serviço já cadastrado");
+
+    return Results.NotFound("Não existem animais na tabela");
 });
 
-app.MapGet("servicos/listar", ([FromServices] AppContext context) => 
 
+app.MapGet("/animais/{id}", ([FromServices] AppDbContext context, int id) =>
 {
-     if (context.Servicos.Any())
-     
+    Animal? animal = context.Animais.FirstOrDefault(animal => animal.Id == id);
+
+    if (animal is null)
     {
-        return Results.Ok(context.Servicos.ToList());
+        return Results.NotFound("Animal não encontrado");
     }
+
+    return Results.Ok(animal);
+});
+
+app.MapDelete("animais/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    Animal? animal = context.Animais.Find(id);
+
+    if (animal is null)
+    {
+        return Results.NotFound("Animal não encontrado");
+    }
+
+    if (animal.Adotado)
+    {
+        return Results.BadRequest("Animal não pode ser removido pois já foi adotado");
+    }
+
+    context.Animais.Remove(animal);
+    context.SaveChanges();
+    return Results.Ok("Animal removido com sucesso!");
+
+});
+
+app.MapPut("animais/{id}", ([FromBody] Animal animalRequest, [FromServices] AppDbContext context, int id) =>
+{
+    Animal? animal = context.Animais.Find(id);
+
+    if (animal is null)
+    {
+        return Results.NotFound("Animal não encontrado");
+    }
+
+    animal.Nome = animalRequest.Nome;
+    animal.Tipo = animalRequest.Tipo;
+    animal.DataNascimento = animalRequest.DataNascimento;
+    animal.Raca = animalRequest.Raca;
+    animal.Porte = animalRequest.Porte;
+    animal.Peso = animalRequest.Peso;
+    animal.Sexo = animalRequest.Sexo;
+    animal.Observacao = animalRequest.Observacao;
+    
+    context.SaveChanges();
+    return Results.Ok(animal);
+});
+
+app.MapPost("animais/{id}/fotos", ([FromServices] AppDbContext context, int id, [FromBody] AnimalFoto animalFoto ) =>
+{
+    Animal? animal = context.Animais.Find(id);
+
+    if (animal is null)
+    {
+        return Results.NotFound("Animal não encontrado");
+    }
+
+    animalFoto.AnimalId = id;
+    context.AnimalFotos.Add(animalFoto);
+    context.SaveChanges();
+    return Results.Ok(animal);
+});
+
+app.MapDelete("animais/fotos/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    AnimalFoto? animalFoto = context.AnimalFotos.Find(id);
+
+    if (animalFoto is null)
+    {
+        return Results.NotFound("Foto não encontrada");
+    }
+
+    context.AnimalFotos.Remove(animalFoto);
+    context.SaveChanges();
+    return Results.Ok("Foto removida com sucesso!");
+
+});
+
+app.MapGet("/servicos", ([FromServices] AppDbContext context) =>
+{
+    if (context.Servicos.Any())
+    {
+        return Results.Ok(context.Servicos.Include(p => p.Ong).ToList());
+    }
+
     return Results.NotFound("Não existem serviços na tabela");
-
 });
 
-app.MapGet("servicos/buscar/{id}", ([FromServices] AppContext context, int id) => {
-   Servicos? servicoBuascar = context.Servicos.FirstOrDefault(servico => servico.Id == id);
-    
-    if (servicoBuascar is null)
-    {
-    return Results.NotFound("Serviço não encontrado");
+app.MapGet("/servicos/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    Servico? servico = context.Servicos.Include(p => p.Ong).FirstOrDefault(servico => servico.Id == id);
 
+    if (servico is null)
+    {
+        return Results.NotFound("Serviço não encontrado");
     }
-    return Results.Ok(servicoBuascar);
-   
+
+    return Results.Ok(servico);
 });
 
-app.MapDelete("servicos/deletar/{id}", ([FromServices] AppContext context, int id) => {
-   Servicos? servicoBuascar = context.Servicos.Find(id);
-    
-    if (servicoBuascar is null)
-    {
-    return Results.NotFound("Serviço não encontrado");
+app.MapPut("servicos/{id}", ([FromBody] Servico servicoRequest, [FromServices] AppDbContext context, int id) =>
+{
+    Servico? servico = context.Servicos.Find(id);
 
+    if (servico is null)
+    {
+        return Results.NotFound("Serviço não encontrado");
     }
-    context.Servicos.Remove(servicoBuascar);
+
+    servico.Nome = servicoRequest.Nome;
+    servico.Descricao = servicoRequest.Descricao;
     context.SaveChanges();
-    return Results.Ok(servicoBuascar);
-   
+    return Results.Ok(servico);
 });
 
-app.MapPut("servicos/atualizar/{id}", ([FromBody] Servicos servico, [FromServices] AppContext context, int id) => {
-   Servicos? servicoBuascar = context.Servicos.Find(id);
-    
-    if (servicoBuascar is null)
-    {
-    return Results.NotFound("Serviço não encontrado");
 
+app.MapDelete("servicos/{id}", ([FromServices] AppDbContext context, int id) =>
+{
+    Servico? servico = context.Servicos.Find(id);
+
+    if (servico is null)
+    {
+        return Results.NotFound("Serviço não encontrado");
     }
-    servicoBuascar.Nome = servico.Nome.ToUpper();
-    servicoBuascar.Descricao = servico.Descricao;
+
+    context.Servicos.Remove(servico);
     context.SaveChanges();
-    return Results.Ok(servicoBuascar);
-   
+    return Results.Ok("Serviço removido com sucesso!");
+
 });
 
 app.Run();

@@ -1,0 +1,40 @@
+@base_url = http://localhost:5178
+
+### Listar Animais
+GET {{base_url}}/animais
+Content-Type: application/json
+
+### Listar Animais por Id
+GET {{base_url}}/animais/1
+Content-Type: application/json
+
+### Atualizar Animal
+PUT {{base_url}}/animais/1
+Content-Type: application/json
+
+{
+    "nome": "Bolinha",
+    "tipo": 1,
+    "dataNascimento": "2024-03-19",
+    "raca": "Vira-lata",
+    "porte": "Pequeno",
+    "peso": "5.5",
+    "sexo": "Macho",
+    "observacao": "Animal muito dócil"
+}
+
+### Deletar Animal
+DELETE {{base_url}}/animais/1
+Content-Type: application/json
+
+### Adicionar Fotos 
+POST {{base_url}}/animais/1/fotos
+Content-Type: application/json 
+
+{
+    "url": "https://www.doglife.com.br/blog/assets/post/gato-angora-saiba-tudo-sobre-a-raca-originada-na-turquia-6287dd0471a1ec06b374fb7e/gato-angora-capa.jpg"
+}
+
+### Deletar Fotos
+DELETE {{base_url}}/animais/fotos/1
+Content-Type: application/json

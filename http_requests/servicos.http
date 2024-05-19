@@ -1,0 +1,18 @@
+@base_url = http://localhost:5178
+
+### Listar Serviços
+GET {{base_url}}/servicos
+Content-Type: application/json
+
+### Atualizar Serviço
+PUT {{base_url}}/servicos/1
+Content-Type: application/json
+
+{
+    "nome": "Doação de sangue",
+    "descricao": "Doação de sangue para o hospital"
+}
+
+### Deletar Serviço
+DELETE {{base_url}}/servicos/1
+Content-Type: application/json
