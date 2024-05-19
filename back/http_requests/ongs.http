@@ -1,0 +1,96 @@
+@base_url = http://localhost:5178
+
+### Cadastrar ong
+POST {{base_url}}/ongs
+Content-Type: application/json
+
+{
+    "nome": "ONG Amor Pet",
+    "email": "contato@amorpet.com.br",
+    "cnpj": "12345678901234",
+    "telefone": "0800 721 5844",
+    "endereco": "Praça Gen. Osório, 125",
+    "servicos": [
+        {
+            "nome": "Adoção",
+            "descricao": "Adote um animalzinho"
+        }
+    ],
+    "animais": [
+        {
+            "nome": "Bolinha",
+            "tipo": 1,
+            "dataNascimento": "2024-02-19",
+            "raca": "Vira-lata",
+            "porte": "Pequeno",
+            "peso": "5.5",
+            "sexo": "Macho",
+            "observacao": "Animal muito dócil",
+            "fotos": [
+                {
+                    "url": "https://img.freepik.com/fotos-premium/cachorro-fofo-enquanto-levanta-o-pe_1000717-382.jpg"
+                }
+            ]
+        }
+    ],
+    "redesSociais": [
+        {
+            "url": "https://www.facebook.com/amorpet",
+            "descricao": "Facebook"
+        }
+    ]
+}
+
+### Listar ongs
+GET {{base_url}}/ongs
+Content-Type: application/json
+
+### Listar ong por id
+GET {{base_url}}/ongs/1
+Content-Type: application/json
+
+### Atualizar ong
+PUT {{base_url}}/ongs/1
+Content-Type: application/json
+
+{
+    "nome": "ONG Amor Pet",
+    "email": "contato@amorpet.com.br",
+    "cnpj": "12345678901234",
+    "telefone": "0800 721 5844",
+    "endereco": "Praça Gen. Osório, 125"
+}
+
+### Deletar ong
+DELETE {{base_url}}/ongs/1
+Content-Type: application/json
+
+
+### Cadastrar animal
+POST {{base_url}}/ongs/1/animais
+Content-Type: application/json
+
+{
+    "nome": "Mia",
+    "tipo": 2,
+    "dataNascimento": "2019-04-19",
+    "raca": "Angorá",
+    "porte": "Pequeno",
+    "peso": "5",
+    "sexo": "Fêmea",
+    "observacao": "Gata sapeca",
+    "fotos": [
+        {
+            "url": "https://t2.gstatic.com/licensed-image?q=tbn:ANd9GcTWuygkLOk15V7B0A9QiKx6oHHzI9CiZut__3LWHEDRPqbar9ua0HKxdd4UPLC8B3vJ"
+        }
+    ]
+}
+
+### Adicionar Serviços
+POST {{base_url}}/ongs/1/servicos
+Content-Type: application/json
+
+{
+    "nome": "Doação de ração",
+    "descricao": "Doação de ração para animais carentes"
+}

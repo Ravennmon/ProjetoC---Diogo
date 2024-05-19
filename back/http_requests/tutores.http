@@ -1,0 +1,41 @@
+@base_url = http://localhost:5178
+
+### Cadastrar tutor
+POST {{base_url}}/tutores
+Content-Type: application/json
+
+{
+    "nome": "Renan Santos",
+    "email": "renanrls97@gmail.com",
+    "cpfCnpj": "09173185957",
+    "telefone": "41 99542-6236",
+    "endereco": "Rua Mal. José Bernardino Bormann, 1346",   
+    "dataNascimento": "1997-02-19"
+}
+
+### Listar tutores
+GET {{base_url}}/tutores
+
+### Buscar tutor por id
+GET {{base_url}}/tutores/1
+
+### Atualizar tutor
+PUT {{base_url}}/tutores/1
+Content-Type: application/json
+
+{
+    "nome": "Aline Freitas",
+    "email": "aline_freitas@eclatt.com.br",
+    "cpfCnpj": "20583281591",
+    "telefone": "(92) 99875-3617",
+    "endereco": "Rua São Sebastião, 655 - Manaus, AM",   
+    "dataNascimento": "1995-06-23"
+}
+
+### Deletar tutor
+DELETE {{base_url}}/tutores/1
+
+
+### Adotar animal
+POST {{base_url}}/tutores/1/adocao/1
+Content-Type: application/json
