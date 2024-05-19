@@ -10,9 +10,15 @@ public static class EntityExtensions
 {
     public static void Update<T>(this T target, T source, DbContext context) where T : class
     {
-        var primaryKeyProperties = context.Model.FindEntityType(typeof(T)).FindPrimaryKey().Properties;
+        var entityType = context.Model.FindEntityType(typeof(T));
+        if (entityType == null) throw new InvalidOperationException($"Entidade {typeof(T)} não encontrada.");
 
-        var foreignKeyProperties = context.Model.FindEntityType(typeof(T))
+        var primaryKey = entityType.FindPrimaryKey();
+        if (primaryKey == null) throw new InvalidOperationException($"PK da entidade {typeof(T)} não encontrada.");
+
+        var primaryKeyProperties = primaryKey.Properties;
+
+        var foreignKeyProperties = entityType
             .GetForeignKeys()
             .SelectMany(fk => fk.Properties)
             .ToList();
@@ -21,19 +27,16 @@ public static class EntityExtensions
 
         foreach (var property in properties)
         {
-            // Skip primary key properties
             if (primaryKeyProperties.Any(pk => pk.Name == property.Name))
             {
                 continue;
             }
 
-            // Skip foreign key properties
             if (foreignKeyProperties.Any(fk => fk.Name == property.Name))
             {
                 continue;
             }
 
-            // Skip properties that are collections
             if (typeof(IEnumerable).IsAssignableFrom(property.PropertyType) && property.PropertyType != typeof(string))
             {
                 continue;
