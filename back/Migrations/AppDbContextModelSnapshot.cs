@@ -134,7 +134,6 @@ namespace back.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 

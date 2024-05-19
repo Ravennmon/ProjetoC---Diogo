@@ -107,7 +107,7 @@ namespace back.Migrations
                     Id = table.Column<int>(type: "INTEGER", nullable: false)
                         .Annotation("Sqlite:Autoincrement", true),
                     Url = table.Column<string>(type: "TEXT", nullable: false),
-                    Descricao = table.Column<string>(type: "TEXT", maxLength: 200, nullable: false),
+                    Descricao = table.Column<string>(type: "TEXT", maxLength: 200, nullable: true),
                     OngId = table.Column<int>(type: "INTEGER", nullable: true),
                     TutorId = table.Column<int>(type: "INTEGER", nullable: true)
                 },

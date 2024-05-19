@@ -35,8 +35,8 @@ Content-Type: application/json
     ],
     "redesSociais": [
         {
-            "nome": "Facebook",
-            "url": "https://www.facebook.com/amorpet"
+            "url": "https://www.facebook.com/amorpet",
+            "descricao": "Facebook"
         }
     ]
 }
@@ -62,7 +62,7 @@ Content-Type: application/json
 }
 
 ### Deletar ong
-DELETE {{base_url}}/ongs/3
+DELETE {{base_url}}/ongs/1
 Content-Type: application/json
 
 

@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "/Users/renansantos/www/amor_pet/back/back.csproj": {}
+    "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj": {}
   },
   "projects": {
-    "/Users/renansantos/www/amor_pet/back/back.csproj": {
+    "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/renansantos/www/amor_pet/back/back.csproj",
+        "projectUniqueName": "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj",
         "projectName": "back",
-        "projectPath": "/Users/renansantos/www/amor_pet/back/back.csproj",
-        "packagesPath": "/Users/renansantos/.nuget/packages/",
-        "outputPath": "/Users/renansantos/www/amor_pet/back/obj/",
+        "projectPath": "D:\\coding\\c#\\ProjetoC-Diogo\\back\\back.csproj",
+        "packagesPath": "C:\\Users\\heL\\.nuget\\packages\\",
+        "outputPath": "D:\\coding\\c#\\ProjetoC-Diogo\\back\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/renansantos/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\heL\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
@@ -77,7 +77,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.300/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.204/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

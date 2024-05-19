@@ -11,7 +11,7 @@ using back.Models;
 namespace back.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20240519152419_InitialMigration")]
+    [Migration("20240519210623_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -137,7 +137,6 @@ namespace back.Migrations
                         .HasColumnType("INTEGER");
 
                     b.Property<string>("Descricao")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("TEXT");
 

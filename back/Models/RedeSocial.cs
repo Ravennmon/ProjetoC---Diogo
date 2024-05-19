@@ -18,7 +18,7 @@ public class RedeSocial
 
     [MinLength(3)]
     [MaxLength(200)]
-    public string Descricao { get; set; }
+    public string? Descricao { get; set; }
 
     public int? OngId { get; set; }
     public Ong? Ong { get; set; }
